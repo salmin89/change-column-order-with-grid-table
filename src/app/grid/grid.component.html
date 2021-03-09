@@ -5,6 +5,7 @@
 
         <button *ngIf="col['order'] > 0"> < </button>
         {{ col.propertyName }}
+        <button *ngIf="col['order'] < colLength"> > </button>
 
       </th>
     </tr>

@@ -21,10 +21,12 @@ export class GridComponent implements OnInit {
 
   columnOrder = {};
   gridTemplateColumns: string;
+  colLength: number;
 
   ngOnInit() {
     this.setColumnOrder();
     this.setGridTemplateColumns();
+    this.colLength = this.columns.length;
   }
 
   setColumnOrder() {

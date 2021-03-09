@@ -23,16 +23,18 @@ export class GridComponent implements OnInit {
   gridTemplateColumns: string;
   colLength: number;
 
+  constructor() {}
+
   ngOnInit() {
     this.setColumnOrder();
     this.setGridTemplateColumns();
-    this.colLength = this.columns.length;
+    this.colLength = this.columns.length - 1;
   }
 
   setColumnOrder() {
-    this.items.forEach((item, i) => {
-      Object.defineProperty(item, "order", { writable: true, value: i });
-      this.columnOrder[i] = item;
+    this.columns.forEach((col, i) => {
+      Object.defineProperty(col, "order", { writable: true, value: i });
+      this.columnOrder[i] = col;
     });
   }
 
@@ -40,5 +42,14 @@ export class GridComponent implements OnInit {
     this.gridTemplateColumns = this.columns
       .map(() => `minmax(150px, 1fr)`)
       .join(" ");
+  }
+
+  move(col, diff) {
+    const oldItem = this.columnOrder[col.order + diff];
+    this.columnOrder[col.order + diff] = col;
+    this.columnOrder[col.order] = oldItem;
+
+    oldItem.order = oldItem.order - diff;
+    col.order = col.order + diff;
   }
 }

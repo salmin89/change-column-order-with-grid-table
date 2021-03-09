@@ -1,11 +1,11 @@
 <table>
   <thead>
     <tr style="grid-template-columns: {{gridTemplateColumns}}">
-      <th *ngFor="let col of columns">
+      <th *ngFor="let col of columns" style="order: {{col['order']}}">
 
-        <button *ngIf="col['order'] > 0"> < </button>
+        <button *ngIf="col['order'] > 0" (click)="move(col, -1)"> < </button>
         {{ col.propertyName }}
-        <button *ngIf="col['order'] < colLength"> > </button>
+        <button *ngIf="col['order'] < colLength" (click)="move(col, 1)"> > </button>
 
       </th>
     </tr>
@@ -14,7 +14,7 @@
 
   <tbody>
     <tr *ngFor="let item of items" style="grid-template-columns: {{gridTemplateColumns}}">
-      <td *ngFor="let col of columns"> {{item[col.propertyName] }} </td>
+      <td *ngFor="let col of columns" style="order: {{col['order']}}"> {{item[col.propertyName] }} </td>
     </tr>
   </tbody>
 </table>

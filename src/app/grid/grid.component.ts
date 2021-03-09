@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnChanges, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-grid",
@@ -7,11 +7,36 @@ import { Component, Input, OnInit } from "@angular/core";
 })
 export class GridComponent implements OnInit {
   @Input() items = [
-    { name: "Adam", age: 35 },
-    { name: "Eve", age: 25 },
-    { name: "Pat", age: 40 },
-    { name: "Steve", age: 30 }
+    { name: "Adam", age: 35, favColor: "red" },
+    { name: "Eve", age: 25, favColor: "blue" },
+    { name: "Pat", age: 40, favColor: "green" },
+    { name: "Steve", age: 30, favColor: "pink" }
   ];
 
-  ngOnInit() {}
+  @Input() columns = [
+    { propertyName: "name" },
+    { propertyName: "age" },
+    { propertyName: "favColor" }
+  ];
+
+  columnOrder = {};
+  gridTemplateColumns: string;
+
+  ngOnInit() {
+    this.setColumnOrder();
+    this.setGridTemplateColumns();
+  }
+
+  setColumnOrder() {
+    this.items.forEach((item, i) => {
+      Object.defineProperty(item, "order", { writable: true, value: i });
+      this.columnOrder[i] = item;
+    });
+  }
+
+  setGridTemplateColumns() {
+    this.gridTemplateColumns = this.columns
+      .map(() => `minmax(150px, 1fr)`)
+      .join(" ");
+  }
 }

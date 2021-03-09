@@ -1,0 +1,14 @@
+<table>
+  <thead>
+    <tr style="grid-template-columns: {{gridTemplateColumns}}">
+      <th *ngFor="let col of columns"> {{ col.propertyName }} </th>
+    </tr>
+  </thead>
+
+
+  <tbody>
+    <tr *ngFor="let item of items" style="grid-template-columns: {{gridTemplateColumns}}">
+      <td *ngFor="let col of columns"> {{item[col.propertyName] }} </td>
+    </tr>
+  </tbody>
+</table>
